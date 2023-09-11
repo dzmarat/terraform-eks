@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+  labels:
+    name: ingress-nginx
+spec:
+  rules:
+  - host: jantaly.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: ingress-nginx-controller-admission
+            port: 
+              number: 443

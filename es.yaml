@@ -1,0 +1,29 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: test-secret
+  namespace: test
+spec:
+  refreshInterval: 3m
+  secretStoreRef:
+    name: aws-clustersecretrstore-sm
+    kind: ClusterSecretStore
+  target:
+    name: test-k8s-secret
+  data:
+  - secretKey: key1
+    remoteRef: 
+      key: test-secrets/test1
+      property: key1
+  - secretKey: key2
+    remoteRef: 
+      key: test-secrets/test1
+      property: key2
+  - secretKey: key3
+    remoteRef: 
+      key: test-secrets/test1
+      property: key3
+  - secretKey: key4
+    remoteRef: 
+      key: test-secrets/test1
+      property: key4      
