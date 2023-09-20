@@ -77,6 +77,12 @@ spec:
             docker build -t ${image} ."""
       }
     }
+    stage('Install AWS CLI') {
+      container('docker') {
+        // Install AWS CLI using pip (Python package manager)
+        sh "pip install awscli"
+      }
+    }
     stage('Login to ECR') {
       container('docker') {
         sh "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
