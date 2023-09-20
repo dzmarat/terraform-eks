@@ -10,7 +10,7 @@ module "external_secrets_clustersecretstore_irsa_role" {
 
   oidc_providers = {
     ex = {
-      provider_arn               = "arn:aws:iam::398767507008:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/C3A363EA8D7C4E1DC8A3E05658A02F42"
+      provider_arn               = "arn:aws:iam::398767507008:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/060504390F621D5A23EF83837B9669BC"
       namespace_service_accounts = ["external-secrets:external-secrets"]
     }
   }
@@ -25,7 +25,7 @@ module "ebs_csi_irsa_role" {
 
   oidc_providers = {
     ex = {
-      provider_arn               = "arn:aws:iam::398767507008:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/C3A363EA8D7C4E1DC8A3E05658A02F42"
+      provider_arn               = "arn:aws:iam::398767507008:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/060504390F621D5A23EF83837B9669BC"
       namespace_service_accounts = ["kube-system:ebs-csi-controller-sa"]
     }
   }
