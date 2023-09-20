@@ -80,7 +80,11 @@ spec:
     stage('Install AWS CLI') {
       container('docker') {
         // Install AWS CLI using pip (Python package manager)
-        sh "pip install awscli"
+        sh """
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+          """
       }
     }
     stage('Login to ECR') {
