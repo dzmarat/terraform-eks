@@ -23,8 +23,8 @@ resource "aws_iam_role_policy_attachment" "Amazon-EKS-Cluster-Policy" {
   role       = aws_iam_role.eks-cluster.name
 }
 
-resource "aws_iam_role_policy_attachment" "Amazon-EKS-Cluster-Policy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEBSCSIDriverPolicy"
+resource "aws_iam_role_policy_attachment" "Amazon-EBS-Cluster-Policy" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
   role       = aws_iam_role.eks-cluster.name
 }
 
