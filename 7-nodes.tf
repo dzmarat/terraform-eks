@@ -33,6 +33,11 @@ resource "aws_iam_role_policy_attachment" "amazon_ec2_container_registry_read_on
   role       = aws_iam_role.nodes-general.name
 }
 
+resource "aws_iam_role_policy_attachment" "Amazon-EBS-Cluster-Policy" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+  role       = aws_iam_role.nodes-general.name
+}
+
 resource "aws_eks_node_group" "nodes-general" {
   cluster_name    = aws_eks_cluster.eks.name
   node_group_name = "nodes-general"

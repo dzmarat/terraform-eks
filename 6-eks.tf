@@ -23,11 +23,6 @@ resource "aws_iam_role_policy_attachment" "Amazon-EKS-Cluster-Policy" {
   role       = aws_iam_role.eks-cluster.name
 }
 
-resource "aws_iam_role_policy_attachment" "Amazon-EBS-Cluster-Policy" {
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
-  role       = aws_iam_role.eks-cluster.name
-}
-
 resource "aws_eks_cluster" "eks" {
   name     = "eks"
   role_arn = aws_iam_role.eks-cluster.arn
@@ -44,6 +39,11 @@ resource "aws_eks_cluster" "eks" {
     ]
   }
 }
+
+/* resource "aws_eks_addon" "ebs_addon" {
+  cluster_name = aws_eks_cluster.eks.name
+  addon_name   = "aws-ebs-csi-driver"
+} */
 
 /* resource "aws_iam_openid_connect_provider" "op_connect" {
   client_id_list  = ["sts.amazonaws.com"]
