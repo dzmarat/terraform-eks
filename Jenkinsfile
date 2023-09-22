@@ -50,6 +50,7 @@ AWS_DEFAULT_REGION="us-east-1"
 IMAGE_REPO_NAME="apiapp"
 IMAGE_TAG="latest"
 REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+REGISTRY_CREDENTIALS = "aws-credentials"
 
 podTemplate(label: label, yaml: """
 apiVersion: v1
@@ -77,20 +78,29 @@ spec:
             docker build -t ${image} ."""
       }
     }
-    stage('Install AWS CLI') {
-      container('docker') {
-        // Install AWS CLI using pip (Python package manager)
-        sh """
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install
-          """
-      }
-    }
-    stage('Login to ECR') {
-      container('docker') {
-        sh "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
-      }
+    // stage('Install AWS CLI') {
+    //   container('docker') {
+    //     // Install AWS CLI using pip (Python package manager)
+    //     sh """
+    //       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    //       unzip awscliv2.zip
+    //       sudo ./aws/install
+    //       """
+    //   }
+    // }
+    // stage('Login to ECR') {
+    //   container('docker') {
+    //     sh "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+    //   }
+    // }
+      stage('Deploy image') {
+        steps{
+            script{
+                docker.withRegistry("https://" + REPOSITORY_URI, "ecr:us-east-1:" + REGISTRY_CREDENTIALS) {
+                    dockerImage.push()
+                }
+            }
+        }
     }
   }
 }
