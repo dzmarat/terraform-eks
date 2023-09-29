@@ -77,6 +77,12 @@ spec:
             docker build -t ${image} ."""
       }
     }
+    stage('test branch') {
+      git 'https://github.com/dzmarat/terraform-eks.git'
+      container('docker') {
+        sh """env"""
+      }
+    }
     stage('Install AWS CLI') {
       container('docker') {
         // Install AWS CLI using pip (Python package manager)
