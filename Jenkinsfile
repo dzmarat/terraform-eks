@@ -18,7 +18,7 @@ pipeline {
             }
       stage {
         script {
-          sh "echo hello"
+          sh "echo hello world"
       }
     }
   }
