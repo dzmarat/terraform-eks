@@ -86,7 +86,7 @@ spec:
     stage('echo') {
       git 'https://github.com/dzmarat/terraform-eks.git'
       container('docker') {
-        sh """echo hello world again"""
+        sh """echo hello"""
       }
     }
 
