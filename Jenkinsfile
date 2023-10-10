@@ -83,12 +83,13 @@ spec:
         sh """env"""
       }
     }
-    stage('test branch') {
+    stage('echo') {
       git 'https://github.com/dzmarat/terraform-eks.git'
       container('docker') {
-        sh """env"""
+        sh """echo hello"""
       }
     }
+
     // stage('Install AWS CLI') {
     //   container('docker') {
     //     // Install AWS CLI using pip (Python package manager)
@@ -107,3 +108,4 @@ spec:
     // }
   }
 }
+
