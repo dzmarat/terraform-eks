@@ -77,21 +77,33 @@ spec:
             docker build -t ${image} ."""
       }
     }
-    stage('Install AWS CLI') {
+    stage('test branch') {
+      git 'https://github.com/dzmarat/terraform-eks.git'
       container('docker') {
-        // Install AWS CLI using pip (Python package manager)
-        sh """
-          apk add curl
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          ./aws/install
-          """
+        sh """env"""
       }
     }
-    stage('Login to ECR') {
+    stage('test branch') {
+      git 'https://github.com/dzmarat/terraform-eks.git'
       container('docker') {
-        sh "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+        sh """env"""
       }
     }
+    // stage('Install AWS CLI') {
+    //   container('docker') {
+    //     // Install AWS CLI using pip (Python package manager)
+    //     sh """
+    //       apk add curl
+    //       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    //       unzip awscliv2.zip
+    //       ./aws/install
+    //       """
+    //   }
+    // }
+    // stage('Login to ECR') {
+    //   container('docker') {
+    //     sh "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+    //   }
+    // }
   }
 }
